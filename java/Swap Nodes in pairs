@@ -1,0 +1,28 @@
+class Solution {
+    public ListNode swapPairs(ListNode head) {
+        // 1. Handle edge cases where list is empty or has only one node
+        if (head == null || head.next == null) return head;
+
+        // 2. Initialize a dummy node to simplify head management
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode prev = dummy;
+
+        // 3. Loop as long as there is a pair to swap
+        while (prev.next != null && prev.next.next != null) {
+            // Identify the two nodes to be swapped
+            ListNode first = prev.next;
+            ListNode second = prev.next.next;
+
+            // Perform the swap by adjusting pointers
+            first.next = second.next;
+            second.next = first;
+            prev.next = second;
+
+            // Move the 'prev' pointer two nodes forward for the next pair
+            prev = first;
+        }
+
+        return dummy.next;
+    }
+}
