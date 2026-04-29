@@ -1,0 +1,28 @@
+import java.util.*;
+
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        List<String> result = new ArrayList<>();
+        backtrack(result, "", 0, 0, n);
+        return result;
+    }
+
+    private void backtrack(List<String> result, String current, int open, int close, int max) {
+        // 1. Base Case: If the string length reaches 2 * n, we found a valid combination
+        if (current.length() == max * 2) {
+            result.add(current);
+            return;
+        }
+
+        // 2. Add an opening bracket if we haven't reached the limit 'n'
+        if (open < max) {
+            backtrack(result, current + "(", open + 1, close, max);
+        }
+
+        // 3. Add a closing bracket only if there are more open brackets than closed
+        // This ensures the combination stays well-formed
+        if (close < open) {
+            backtrack(result, current + ")", open, close + 1, max);
+        }
+    }
+}
